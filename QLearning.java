@@ -30,12 +30,12 @@ public class QLearning {
 	 * @param x
 	 * @return 選択された行動番号
 	 */
-	public int selectAction(int state, double epsilon) {
+	public int selectAction(int state, double epsilon, int actionNumber) {
 		int action;
 		Random rand = new Random();
 		//最初に設定する借りの最大値はランダムに設定する
 		//これにより値が等しいQ値が複数あったとしても、特定の方向だけ選択するというような事を防いでいる。
-		int max = rand.nextInt(4);
+		int max = rand.nextInt(actionNumber);
 		//maxはQ値が最大である行動を示している
 		//行動４つに対するQ値の中から最大値を見つける
 		for (int i = 1; i < qTable[state].length; i++) {
@@ -49,7 +49,7 @@ public class QLearning {
 			action = max;
 		else {
 			//一定の確率でランダムに行動を選択する
-			int randAction = rand.nextInt(4);
+			int randAction = rand.nextInt(actionNumber);
 			action = randAction;
 		}
 		//行動を表す番号を返す
@@ -96,6 +96,17 @@ public class QLearning {
 //			}
 //			System.out.println();
 //		}
+	}
+	
+	public void showQTable() {
+		System.out.println("/////////////////////////");
+		for (int i = 0; i < qTable.length; i++) {
+			System.out.print("S " + i + " : ");
+			for (int j = 0; j < qTable[i].length; j++) {
+				System.out.print(qTable[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
 
 	// フィールド
